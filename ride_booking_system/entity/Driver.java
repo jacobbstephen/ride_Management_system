@@ -3,9 +3,9 @@ package ride_booking_system.entity;
 public class Driver {
 	private String name;
 	private String phoneNumber;
-	private String vechileType;
+	private Vehicle vechileType;
 	private boolean available;
-	public Driver(String name, String phoneNumber, String vechileType, boolean available ) {
+	public Driver(String name, String phoneNumber, Vehicle vechileType, boolean available ) {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.vechileType = vechileType;
@@ -17,7 +17,7 @@ public class Driver {
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public String getVechileType() {
+	public Vehicle getVechileType() {
 		return vechileType;
 	}
 	public boolean isAvailable() {
