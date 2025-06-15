@@ -9,28 +9,14 @@ import ride_booking_system.exceptions.DriverNotFoundException;
 import ride_booking_system.exceptions.RideException;
 import ride_booking_system.exceptions.RideNotFoundException;
 
-public class BookRideService implements RideService {
+public  class BookRideService implements RideService {
 	
 	private double BASE_FARE = 10;
 	private double PRICE_PER_KM = 5;
 
 	@Override
 	public void bookRide(User currentUser, String pickup, String drop, String vehicleType) throws DriverNotFoundException {
-		// TODO Auto-generated method stub
-		
-		Driver[] drivers = DriverRepository.getDrivers();
-		int driverCount = DriverRepository.getDriverCount();
-		Driver assignedDriver = null;
-		
-		
-		for(int i = 0; i < driverCount; i++) {
-			Driver driver =  drivers[i];
-			if(driver.isAvailable() && driver.getVehicleType().getType().equals(vehicleType)) {
-				assignedDriver = drivers[i];
-				assignedDriver.setAvailable(false);
-				break;
-			}
-		}
+		Driver assignedDriver = findDriver(vehicleType);
 		if(assignedDriver == null) throw new DriverNotFoundException("All Drivers are busy. Couldn't assign driver for your ride. User: " + currentUser.getName());
 		double distance = new LocationService().getDistanceFromGoogleMap(pickup, drop);
 		double fare = calculateFare(distance);
@@ -45,6 +31,22 @@ public class BookRideService implements RideService {
 		}
 	}
 	
+	private Driver findDriver(String vehicleType) {
+		Driver[] drivers = DriverRepository.getDrivers();
+		int driverCount = DriverRepository.getDriverCount();
+		Driver assignedDriver = null;
+		
+		for(int i = 0; i < driverCount; i++) {
+			Driver driver =  drivers[i];
+			if(driver.isAvailable() && driver.getVehicleType().getType().equals(vehicleType)) {
+				assignedDriver = drivers[i];
+				assignedDriver.setAvailable(false);
+				break;
+			}
+		}
+		
+		return assignedDriver;
+	}
 	
 	@Override
 	public double calculateFare(double distance) {
@@ -106,7 +108,6 @@ public class BookRideService implements RideService {
 	            }catch(RideException e) {
 	            	System.err.println(e.getMessage());
 	            }
-	            
 	            
 	             
 	        }

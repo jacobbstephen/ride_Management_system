@@ -32,9 +32,6 @@ public class RideApp {
 			User u1 = new User("U1", "XXXXXXXX78");
 			
 			bookRideService.bookRide(u1, "A", "B", "car");
-
-			
-		
 			
 		}catch(RideException e) {
 			System.err.println(e.getMessage());
