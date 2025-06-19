@@ -3,6 +3,7 @@ package ride_booking_system.entity;
 import ride_booking_system.service.RideStatus;
 
 public class Ride {
+
 	private String pickUpLocation;
 	private String dropOffLocation;
 	private double distance;
@@ -67,24 +68,42 @@ public class Ride {
 	public void setPaymentDone(boolean paymentDone) {
 		this.paymentDone = paymentDone;
 	}
-
+	public Boolean getPaymentDone() {
+		return paymentDone;
+	}
 	public void setMethodOfPayment(String methodOfPayment) {
 		this.methodOfPayment = methodOfPayment;
 	}
 
-	public void printRideSummary() {
-        System.out.println("==== Ride Summary ====");
-        System.out.println("User: " + user.getName() + " (" + user.getPhoneNumber() + ")");
-        System.out.println("From: " + pickUpLocation);
-        System.out.println("To: " + dropOffLocation);
-        System.out.println("Distance: " + distance + " km");
-        System.out.println("Fare: ₹" + fare);
-        System.out.println("Driver: " + driver.getName() + " (" + driver.getVechileType() + ")");
-        System.out.println("Status: " + status);
-        System.out.println("Rating: " + (rating == 0 ? "Not Rated" : rating + " ★"));
-        System.out.println("Payment: " + (paymentDone == true ? "Payment done" : "Payment Not done"));
-        System.out.println("Method of Payment: " + methodOfPayment);
-        System.out.println("======================");
-    }
+	public String getMethodOfPayment() {
+		return methodOfPayment;
+	}
+
+	public void setPickUpLocation(String pickUpLocation) {
+		this.pickUpLocation = pickUpLocation;
+	}
+
+	public void setDropOffLocation(String dropOffLocation) {
+		this.dropOffLocation = dropOffLocation;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+
+	public void setFare(double fare) {
+		this.fare = fare;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
 	
 }

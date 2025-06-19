@@ -11,6 +11,7 @@ public class Driver {
 		this.vechileType = vechileType;
 		this.available = available;
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -30,6 +31,9 @@ public class Driver {
 	@Override
 	public  String toString() {
 		return name + " : " + phoneNumber + " : " + vechileType + " : " + available;
+	}
+	public String toCSV() {
+		return String.join(",", name, phoneNumber, vechileType.toString(), String.valueOf(available));
 	}
 	
 }
