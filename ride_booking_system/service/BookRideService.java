@@ -17,7 +17,7 @@ public class BookRideService implements RideService {
 	RideRepository rideRepository = new RideRepository();
 
 
-	public void bookRide(User user, String rideType, String pickup, String drop) throws DriverNotFoundException {
+	public Ride bookRide(User user, String rideType, String pickup, String drop) throws DriverNotFoundException {
 
 		Driver assignedDriver = findDriver(rideType);
 		if (assignedDriver == null)
@@ -29,6 +29,7 @@ public class BookRideService implements RideService {
 		rideRepository.addRide(ride);
 		printRideSummary(ride);
 		rideRepository.save();
+		return ride;
 	}
 
 	private Driver findDriver(String rideType) {
@@ -53,7 +54,7 @@ public class BookRideService implements RideService {
 		System.out.println("To: " + ride.getDropOffLocation());
 		System.out.println("Distance: " + ride.getDistance() + " km");
 		System.out.println("Fare: ₹" + ride.getFare());
-		System.out.println("Driver: " + ride.getDriver().getName() + " (" + ride.getDriver().getVechileType() + ")");
+		System.out.println("Driver: " + ride.getDriver().getName() + " (" + ride.getDriver().getVechileType().getName() + ")");
 		System.out.println("Status: " + ride.getStatus());
 		System.out.println("Rating: " + (ride.getRating() == 0 ? "Not Rated" : ride.getRating() + " ★"));
 		System.out.println("Payment: " + (ride.getPaymentDone() ? "Payment done" : "Payment Not done"));
@@ -113,7 +114,7 @@ public class BookRideService implements RideService {
 				System.out.print("How Do You Like to pay? by Cash or UPI: ");
 				String paymentMethod = sc.next();
 				new PaymentProcess().makePayment(ride, paymentMethod);
-				// ride.printRideSummary();
+				printRideSummary(ride);
 
 			} catch (RideException e) {
 				System.err.println(e.getMessage());

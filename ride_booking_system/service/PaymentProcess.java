@@ -15,8 +15,9 @@ public class PaymentProcess implements PaymentService {
 		}
 		System.out.println("Please pay via " + paymentType + "  Rs." + ride.getFare() + " to Driver " + ride.getDriver().getName() + " for the ride");
 		Payment payment = new Payment(paymentType, ride.getFare());
+		ride.setPaymentDone(true);
 		ride.setPayment(payment);
-		
+		ride.setMethodOfPayment(paymentType);
 		return true;
 	}
 }

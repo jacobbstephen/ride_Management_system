@@ -22,8 +22,6 @@ public class RideRepository {
 		rides.add(ride);
 	}
 
-	
-
 	public void save() {
 		String filePath = "ride_booking_system/data/rides.csv";
 		FileWriter fileWriter = null;
