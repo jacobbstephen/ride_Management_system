@@ -14,6 +14,7 @@ public class Ride {
     private int rating;
     private boolean paymentDone = false;
     private String methodOfPayment;
+	private Payment payment;
 	
 	public Ride(String pickUpLocation, String dropOffLocation, double distance, double fare, Driver driver, User user) {
 		this.pickUpLocation = pickUpLocation;
@@ -24,9 +25,17 @@ public class Ride {
 		this.user = user;
 		this.status = RideStatus.BOOKED;
 	}
+
+	public Payment getPayment() {
+		return payment;
+	}
 	
 	public boolean isPaymentDone() {
 		return paymentDone;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 	
 	public String getPickUpLocation() {
@@ -103,7 +112,4 @@ public class Ride {
 		this.user = user;
 	}
 
-
-
-	
 }
