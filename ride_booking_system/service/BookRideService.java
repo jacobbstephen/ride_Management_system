@@ -11,6 +11,7 @@ public class BookRideService {
 	
 	DriverRepository driverRepository;
 	RideRepository rideRepository;
+	
 	double BASE_FARE = 10;
 	double PRICE_PER_KM = 5;
 

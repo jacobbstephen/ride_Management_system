@@ -1,2 +1,1 @@
 User,UserPhone,PickUp,DropOff,Distance,Fare,Driver,VehicleType,Status,Rating,PaymentDone,MethodOfPayment
-U1,XXXXXXXX78,c,a,20.0,110.0,Manoj Singh,auto,COMPLETED,5,true,Cash
