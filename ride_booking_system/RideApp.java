@@ -2,6 +2,7 @@ package ride_booking_system;
 
 import ride_booking_system.entity.Vehicle;
 
+
 import java.util.Scanner;
 
 import ride_booking_system.entity.Driver;
@@ -12,10 +13,31 @@ import ride_booking_system.repositories.DriverRepository;
 import ride_booking_system.service.BookRideService;
 
 public class RideApp {
+	public static void bookAndHandleRide(User user, String rideType, String pickup, String drop) {
+    Scanner sc = new Scanner(System.in);
+    try {
+		BookRideService bookRideService = new BookRideService();
+        Ride ride = bookRideService.bookRide(user, rideType, pickup, drop);
+		System.out.println("Driver assigned for user{ " + ride.getUser().getName() + "} is " + ride.getDriver().getName());
+
+        System.out.println(user.getName() + ": Enter whether you want to complete or cancel the ride. Type: {complete or cancel}");
+        String choice = sc.next();
+
+        if (choice.equalsIgnoreCase("complete")) {
+            bookRideService.completeRide(ride);
+        } else if (choice.equalsIgnoreCase("cancel")) {
+            bookRideService.cancelRide(ride);
+        } else {
+            System.out.println("❌ Invalid input.");
+        }
+
+    } catch (RideException e) {
+        System.err.println("Error: " + e.getMessage());
+    }
+}
 
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System.in);
 		// simulating the driver addition using loops
 		DriverRepository driverRepository = new DriverRepository();
 		try {
@@ -31,23 +53,17 @@ public class RideApp {
 					driverRepository
 							.addDrivers(new Driver("D" + i, "XXXXXXXXX" + i, new Vehicle("car", "KL024956"), true));
 			}
+
+			
+
 			// Generate users
 			User u1 = new User("U1", "XXXXXXXX78");
 			User u2 = new User("Jeev", "9947712302");
 
-			// book ride
-			BookRideService bookRideService = new BookRideService();
-			Ride ride1 = bookRideService.bookRide(u1, "auto", "c", "a");
-			// Ride ride2 = bookRideService.bookRide(u2,"car","c","a");
-
-			System.out.println(u1.getName()
-					+ ": Enter whether You want to complete the ride or cancel the ride? type: {complete or cancel}");
-			String choice = sc.next();
-			if (choice.equals("complete"))
-				bookRideService.completeRide(ride1);
-			else if (choice.equals("cancel"))
-				bookRideService.cancelRide(ride1);
-
+			
+			bookAndHandleRide(u1, "auto", "c", "a");	
+			// bookAndHandleRide(u2, "car", "a", "b");	
+			
 		} catch (RideException e) {
 			System.err.println(e.getMessage());
 		}

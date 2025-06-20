@@ -11,7 +11,7 @@ import ride_booking_system.entity.Driver;
 import ride_booking_system.entity.Vehicle;
 import ride_booking_system.exceptions.MaxLimitExceedException;
 
-public class DriverRepository {
+public class DriverRepository implements DriverCSVHeaders{
 	private ArrayList<Driver> drivers = new ArrayList<>();
 	private final String path="ride_booking_system/data/drivers.csv";
 	public DriverRepository(){
@@ -29,8 +29,8 @@ public class DriverRepository {
 		drivers.add(driver);
 	}
 
-	public void writeDriversToCSV(String filePath) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+	public void save() throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             for (Driver driver : drivers) {
                 writer.write(driver.toCSV());
                 writer.newLine();
@@ -43,9 +43,9 @@ public class DriverRepository {
 			String line;
 			while ((line = reader.readLine()) != null) {
 			String[] tokens = line.split(",");
-			if (tokens.length < 5) continue; // adjust based on your fields
-			Vehicle vechicle = new Vehicle(tokens[2],tokens[3]);
-			Driver driver = new Driver(tokens[0], tokens[1], vechicle, Boolean.parseBoolean(tokens[4])); // name, phone, vehicle, available
+			if (tokens.length < 5) continue; 
+			Vehicle vechicle = new Vehicle(tokens[VECHILE_TYPE],tokens[VECHILE_NUMBER]);
+			Driver driver = new Driver(tokens[NAME], tokens[PHONE_NUMBER], vechicle, Boolean.parseBoolean(tokens[AVAILABLE])); // name, phone, vehicle, available
 			drivers.add(driver);
 			}
 		} catch(IOException e){

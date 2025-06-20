@@ -33,7 +33,7 @@ public class Driver {
 		return name + " : " + phoneNumber + " : " + vechileType + " : " + available;
 	}
 	public String toCSV() {
-		return String.join(",", name, phoneNumber, vechileType.toString(), String.valueOf(available));
+		return String.join(",", name, phoneNumber, vechileType.getName(),vechileType.getVehicle_number(),  String.valueOf(available));
 	}
 	
 }
