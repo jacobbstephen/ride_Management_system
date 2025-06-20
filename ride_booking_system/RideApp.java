@@ -8,6 +8,7 @@ import java.util.Scanner;
 import ride_booking_system.entity.Driver;
 import ride_booking_system.entity.Ride;
 import ride_booking_system.entity.User;
+import ride_booking_system.exceptions.DriverNotFoundException;
 import ride_booking_system.exceptions.RideException;
 import ride_booking_system.repositories.DriverRepository;
 import ride_booking_system.service.BookRideService;
@@ -38,35 +39,48 @@ public class RideApp {
 
 	public static void main(String[] args) {
 
-		// simulating the driver addition using loops
-		DriverRepository driverRepository = new DriverRepository();
+
+		BookRideService bookRideService = new BookRideService();
+
+		User u1 = new User("U1", "XXXXXXXX78");
+		Ride ride1 = new Ride("a", "b", u1, "car");
+
 		try {
-			// adding drivers
-			for (int i = 1; i < 10; i++) {
-				if (i % 3 == 0)
-					driverRepository
-							.addDrivers(new Driver("D" + i, "XXXXXXXXX" + i, new Vehicle("auto", "KL024556"), true));
-				else if (i % 3 == 1)
-					driverRepository
-							.addDrivers(new Driver("D" + i, "XXXXXXXXX" + i, new Vehicle("bike", "KL024586"), true));
-				else
-					driverRepository
-							.addDrivers(new Driver("D" + i, "XXXXXXXXX" + i, new Vehicle("car", "KL024956"), true));
-			}
+			bookRideService.bookRide(ride1);
+			System.out.println(ride1);
+		} catch (DriverNotFoundException e) {
 
-			
-
-			// Generate users
-			User u1 = new User("U1", "XXXXXXXX78");
-			User u2 = new User("Jeev", "9947712302");
-
-			
-			bookAndHandleRide(u1, "auto", "c", "a");	
-			// bookAndHandleRide(u2, "car", "a", "b");	
-			
-		} catch (RideException e) {
-			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
+
+
+
+		// try {
+		// 	// adding drivers
+		// 	// for (int i = 1; i < 10; i++) {
+		// 	// 	if (i % 3 == 0)
+		// 	// 		driverRepository
+		// 	// 				.addDrivers(new Driver("D" + i, "XXXXXXXXX" + i, new Vehicle("auto", "KL024556"), true));
+		// 	// 	else if (i % 3 == 1)
+		// 	// 		driverRepository
+		// 	// 				.addDrivers(new Driver("D" + i, "XXXXXXXXX" + i, new Vehicle("bike", "KL024586"), true));
+		// 	// 	else
+		// 	// 		driverRepository
+		// 	// 				.addDrivers(new Driver("D" + i, "XXXXXXXXX" + i, new Vehicle("car", "KL024956"), true));
+		// 	// }
+
+			
+
+		// 	// Generate users
+		
+
+			
+		// 	// bookAndHandleRide(u1, "auto", "c", "a");	
+		// 	// bookAndHandleRide(u2, "car", "a", "b");	
+			
+		// } catch (RideException e) {
+		// 	System.err.println(e.getMessage());
+		// }
 
 	}
 

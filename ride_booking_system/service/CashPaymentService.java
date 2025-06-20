@@ -7,7 +7,6 @@ public class CashPaymentService implements PayementService {
 
 	@Override
 	public boolean makePayment(Ride ride) throws PaymentException {
-		// TODO Auto-generated method stub
 		if(ride == null) throw new PaymentException("There is no ride to pay");
 		if(ride.isPaymentDone()) return false;
 		if(ride.getStatus() != RideStatus.COMPLETED) {

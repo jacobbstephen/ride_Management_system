@@ -3,7 +3,7 @@ package ride_booking_system.entity;
 import ride_booking_system.service.RideStatus;
 
 public class Ride {
-
+	private int id;
 	private String pickUpLocation;
 	private String dropOffLocation;
 	private double distance;
@@ -15,15 +15,21 @@ public class Ride {
     private boolean paymentDone = false;
     private String methodOfPayment;
 	private Payment payment;
+	private String rideType;
 	
-	public Ride(String pickUpLocation, String dropOffLocation, double distance, double fare, Driver driver, User user) {
+	public Ride(String pickUpLocation, String dropOffLocation, User user, String rideType) {
 		this.pickUpLocation = pickUpLocation;
 		this.dropOffLocation = dropOffLocation;
-		this.distance = distance;
-		this.fare = fare;
-		this.driver = driver;
 		this.user = user;
-		this.status = RideStatus.BOOKED;
+		this.rideType = rideType;
+	}
+	
+	public String getRideType() {
+		return rideType;
+	}
+
+	public void setRideType(String rideType) {
+		this.rideType = rideType;
 	}
 
 	public Payment getPayment() {
@@ -110,6 +116,23 @@ public class Ride {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Ride [id=" + id + ", pickUpLocation=" + pickUpLocation + ", dropOffLocation=" + dropOffLocation
+				+ ", distance=" + distance + ", fare=" + fare + ", driver=" + driver.getName() + ", user=" + user.getName() + ", status="
+				+ status + ", rating=" + rating + ", paymentDone=" + paymentDone + ", methodOfPayment="
+				+ methodOfPayment + ", payment=" + payment + ", rideType=" + rideType + "]";
 	}
 
 }

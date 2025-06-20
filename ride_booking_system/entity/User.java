@@ -1,6 +1,7 @@
 package ride_booking_system.entity;
 
 public class User {
+	private int id;
 	private String name;
 	private String phoneNumber;
 	 
@@ -14,5 +15,11 @@ public class User {
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 }
