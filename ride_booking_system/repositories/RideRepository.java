@@ -47,7 +47,7 @@ public class RideRepository {
 							 ride.getDistance() + "," +
 							 ride.getFare() + "," +
 							 ride.getDriver().getName() + "," +
-							 ride.getDriver().getVechileType() + "," +
+							 ride.getDriver().getVechileType().getName() + "," +
 							 ride.getStatus() + "," +
 							 (ride.getRating() == 0 ? "" : ride.getRating()) + "," +
 							 ride.getPaymentDone() + "," +
