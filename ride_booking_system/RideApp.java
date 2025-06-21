@@ -32,6 +32,7 @@ public class RideApp {
 
 			RideSummaryService rideSummaryService = new RideSummaryService();
 			rideSummaryService.printRideSummary(ride1);
+			
 
 
 		} catch (RideException e) {

@@ -23,8 +23,8 @@ public class CancelRideService {
 			ride.setStatus(RideStatus.CANCELLED);
 			ride.getDriver().setAvailable(true);
 			System.out.println("Your ride is cancelled");
-			rideRepository.save();
 			try {
+				rideRepository.save();
 				driverRepository.save();
 			} catch (IOException e) {
 				e.printStackTrace();

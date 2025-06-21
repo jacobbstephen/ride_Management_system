@@ -1,6 +1,8 @@
 package ride_booking_system.service;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.List;
+
 import ride_booking_system.entity.Driver;
 import ride_booking_system.entity.Ride;
 import ride_booking_system.exceptions.DriverNotFoundException;
@@ -11,7 +13,7 @@ public class BookRideService {
 	
 	DriverRepository driverRepository;
 	RideRepository rideRepository;
-	
+
 	double BASE_FARE = 10;
 	double PRICE_PER_KM = 5;
 
@@ -27,6 +29,11 @@ public class BookRideService {
 					"All Drivers are busy. Couldn't assign driver for your ride. User: " + ride.getUser().getName());
 
 		assignedDriver.setAvailable(false);
+		try {
+			driverRepository.save();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		double distance = new LocationService().getDistanceFromGoogleMap(ride.getPickUpLocation(), ride.getDropOffLocation());
 		double fare = calculateFare(distance);
 		ride.setFare(fare);
@@ -37,8 +44,8 @@ public class BookRideService {
 	}
 
 	private Driver findDriver(String rideType) {
-		ArrayList<Driver> drivers = driverRepository.getDrivers();
-		int driverCount = driverRepository.getDriverCount();
+		List<Driver> drivers = driverRepository.getAll();
+		int driverCount = driverRepository.size();
 		Driver assignedDriver = null;
 		for (int i = 0; i < driverCount; i++) {
 			if (drivers.get(i).isAvailable() && drivers.get(i).getVechileType().getName().equals(rideType)) {

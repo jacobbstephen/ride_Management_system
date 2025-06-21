@@ -1,10 +1,7 @@
 package ride_booking_system.service;
 
-import java.io.IOException;
-import java.util.Scanner;
 
 import ride_booking_system.entity.Ride;
-import ride_booking_system.exceptions.RideException;
 import ride_booking_system.exceptions.RideNotFoundException;
 import ride_booking_system.repositories.DriverRepository;
 import ride_booking_system.repositories.RideRepository;
@@ -12,12 +9,11 @@ import ride_booking_system.repositories.RideRepository;
 public class CompleteRideService {
     RideRepository rideRepository;
     DriverRepository driverRepository;
+
     public CompleteRideService(){
 		driverRepository = new DriverRepository();
 		rideRepository = new RideRepository();
 	}
-	
-
 
 	public void completeRide(Ride ride) throws RideNotFoundException {
 		if (ride == null)
@@ -26,7 +22,6 @@ public class CompleteRideService {
 			ride.setStatus(RideStatus.COMPLETED);
 			ride.getDriver().setAvailable(true);
 			System.out.println("Ride marked as completed.");
-
 		}
 	}
 }

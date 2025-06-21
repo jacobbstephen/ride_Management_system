@@ -8,11 +8,33 @@ import java.util.List;
 
 import ride_booking_system.entity.Ride;
 
-public class RideRepository {
-	private final List<Ride> rides = new ArrayList<>();
-	// public RideRepository(){
-	// 	loadRidesFromCsv(); //future will be done .. jeev oreppe
-	// }
+public class RideRepository implements RepositoryInterface<Ride> {
+	private final List<Ride> rides;
+	private final String filePath = "ride_booking_system/data/rides.csv";
+
+	public RideRepository(){
+		rides = new ArrayList<>();
+		// load();
+	}
+	
+    public void add(Ride ride){
+		rides.add(ride);
+	}
+    public Ride findById(int id){
+		for(Ride ride: rides){
+			if(ride.getId() == id) return ride;
+		}
+		return null;
+	}
+    public void load(){// TODO:  TO BE IMPLEMENTED BASED ON REQUIREMENT
+
+	}
+    public List<Ride> getAll(){
+		return rides;
+	}
+    public int size(){
+		return rides.size();
+	}
 
 	public List<Ride> getRides() {
 		return rides;
@@ -22,51 +44,39 @@ public class RideRepository {
 		rides.add(ride);
 	}
 
-	public void save() {
-		String filePath = "ride_booking_system/data/rides.csv";
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-		
-		try {
-			// Step 1: Create FileWriter
-			fileWriter = new FileWriter(filePath);
-			
-			// Step 2: Create BufferedWriter
-			bufferedWriter = new BufferedWriter(fileWriter);
-			
-			// Step 3: Write header
+	public void save()  throws IOException{
+		try(FileWriter writer = new FileWriter(filePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+        ) {
 			bufferedWriter.write("User,UserPhone,PickUp,DropOff,Distance,Fare,Driver,VehicleType,Status,Rating,PaymentDone,MethodOfPayment");
 			bufferedWriter.newLine();
-			
-			// Step 4: Write each ride
 			for (Ride ride : rides) {
-				String line = ride.getUser().getName() + "," +
-							 ride.getUser().getPhoneNumber() + "," +
-							 ride.getPickUpLocation() + "," +
-							 ride.getDropOffLocation() + "," +
-							 ride.getDistance() + "," +
-							 ride.getFare() + "," +
-							 ride.getDriver().getName() + "," +
-							 ride.getDriver().getVechileType().getName() + "," +
-							 ride.getStatus() + "," +
-							 (ride.getRating() == 0 ? "" : ride.getRating()) + "," +
-							 ride.getPaymentDone() + "," +
-							 ride.getMethodOfPayment();
-				
+				String line = makeString(ride);
 				bufferedWriter.write(line);
 				bufferedWriter.newLine();
 			}
-			
 		} catch (IOException e) {
 			System.err.println("Error writing to CSV: " + e.getMessage());
-		} finally {
-			// Step 5: Close resources
-			try {
-				if (bufferedWriter != null) bufferedWriter.close();
-				if (fileWriter != null) fileWriter.close();
-			} catch (IOException e) {
-				System.err.println("Error closing writers: " + e.getMessage());
-			}
-		}
+		} 
 	}
+
+	
+
+	private String makeString(Ride ride) {
+		return String.join(",",
+				ride.getUser().getName(),
+				ride.getUser().getPhoneNumber(),
+				ride.getPickUpLocation(),
+				ride.getDropOffLocation(),
+				String.valueOf(ride.getDistance()),
+				String.valueOf(ride.getFare()),
+				ride.getDriver().getName(),
+				ride.getDriver().getVechileType().getName(),
+				String.valueOf(ride.getStatus()),
+				ride.getRating() == 0 ? "" : String.valueOf(ride.getRating()),
+				String.valueOf(ride.getPaymentDone()),
+				ride.getMethodOfPayment()
+			);
+	}
+
 }

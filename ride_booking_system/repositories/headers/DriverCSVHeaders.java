@@ -1,4 +1,4 @@
-package ride_booking_system.repositories;
+package ride_booking_system.repositories.headers;
 
 public interface DriverCSVHeaders {
     int NAME = 0;

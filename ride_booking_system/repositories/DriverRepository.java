@@ -6,51 +6,82 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import ride_booking_system.entity.Driver;
 import ride_booking_system.entity.Vehicle;
-import ride_booking_system.exceptions.MaxLimitExceedException;
+import ride_booking_system.repositories.headers.DriverCSVHeaders;
 
-public class DriverRepository implements DriverCSVHeaders{
-	private ArrayList<Driver> drivers = new ArrayList<>();
-	private final String path="ride_booking_system/data/drivers.csv";
+public class DriverRepository implements DriverCSVHeaders, RepositoryInterface<Driver>{
+	private List<Driver> drivers;
+	private final String path = "ride_booking_system/data/drivers.csv";
+
 	public DriverRepository(){
-		loadDriversFromCSV(path);
+		drivers = new ArrayList<>();
+		load();
 	}
-	
-	public ArrayList<Driver> getDrivers() {
-		return drivers;
-	}
-	public int getDriverCount() {
-		return drivers.size();
-	}
-	
-	public void addDrivers(Driver driver) throws MaxLimitExceedException{
+
+    public void add(Driver driver){
 		drivers.add(driver);
 	}
 
-	public void save() throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
-            for (Driver driver : drivers) {
-                writer.write(driver.toCSV());
-                writer.newLine();
-			}
+    public Driver findById(int id){
+		for(Driver driver: drivers){
+			if(driver.getId() == id) return driver;
 		}
+		return null;
 	}
-	public void loadDriversFromCSV(String filePath) {
+
+    public List<Driver> getAll(){
+		return drivers;
+	}
+
+	public int size() {
+		return drivers.size();
+	}
+	
+	public void load() {
 		drivers.clear();
-		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
-			String[] tokens = line.split(",");
-			if (tokens.length < 5) continue; 
-			Vehicle vechicle = new Vehicle(tokens[VECHILE_TYPE],tokens[VECHILE_NUMBER]);
-			Driver driver = new Driver(tokens[NAME], tokens[PHONE_NUMBER], vechicle, Boolean.parseBoolean(tokens[AVAILABLE])); // name, phone, vehicle, available
-			drivers.add(driver);
+				String[] fields = line.split(",");
+				if (fields.length < 5) continue; 
+				Vehicle vechicle = new Vehicle(fields[VECHILE_TYPE],fields[VECHILE_NUMBER]);
+				Driver driver = new Driver(fields[NAME], fields[PHONE_NUMBER], vechicle, Boolean.parseBoolean(fields[AVAILABLE])); // name, phone, vehicle, available
+				add(driver);
 			}
 		} catch(IOException e){
 			e.printStackTrace();
 		}
-	  
     }
+
+	public void save()  throws IOException{
+		try(FileWriter writer = new FileWriter(path);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+        ) {
+			bufferedWriter.write("Id,Name,PhoneNumber,VehicleType,VehicleNumber,Available");
+			bufferedWriter.newLine();
+			for (Driver driver : drivers) {
+				String line = makeString(driver);
+				bufferedWriter.write(line);
+				bufferedWriter.newLine();
+			}
+		} catch (IOException e) {
+			System.err.println("Error writing to CSV: " + e.getMessage());
+		} 
+	}
+
+
+	private String makeString(Driver driver) {
+		return String.join(",",
+			String.valueOf(driver.getId()),
+			driver.getName(),
+			driver.getPhoneNumber(),
+			driver.getVechileType().getName(),
+			driver.getVechileType().getVehicle_number(),
+			String.valueOf(driver.isAvailable())
+		);
+	}
+
 }
