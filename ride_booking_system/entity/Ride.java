@@ -12,7 +12,6 @@ public class Ride {
     private int rating;
     private boolean paymentDone = false;
     private String methodOfPayment;
-	private Payment payment;
 	private String rideType;
 	private int user_id;
 	private int driver_id;
@@ -25,7 +24,6 @@ public class Ride {
 		this.user_id = user_id;
 	}
 	
-	
 
 	public String getRideType() {
 		return rideType;
@@ -35,17 +33,10 @@ public class Ride {
 		this.rideType = rideType;
 	}
 
-	public Payment getPayment() {
-		return payment;
-	}
-	
 	public boolean isPaymentDone() {
 		return paymentDone;
 	}
 
-	public void setPayment(Payment payment) {
-		this.payment = payment;
-	}
 	
 	public String getPickUpLocation() {
 		return pickUpLocation;
@@ -77,7 +68,6 @@ public class Ride {
 		this.rating = rating;
 	}
 	
-
 	public void setPaymentDone(boolean paymentDone) {
 		this.paymentDone = paymentDone;
 	}
@@ -139,8 +129,6 @@ public class Ride {
 	public int getPaymentId() {
 		return paymentId;
 	}
-
-
 
 	public void setPaymentId(int paymentId) {
 		this.paymentId = paymentId;

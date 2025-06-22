@@ -41,6 +41,11 @@ public class BookRideService {
 		ride.setStatus(RideStatus.BOOKED);
 		ride.setDriver_id(assignedDriver.getId());
 		rideRepository.addRide(ride);
+		try {
+			rideRepository.save();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Ride Successfully Booked");
 	}
 

@@ -3,7 +3,6 @@ package ride_booking_system.service;
 
 import ride_booking_system.entity.Driver;
 import ride_booking_system.entity.Ride;
-import ride_booking_system.entity.User;
 import ride_booking_system.exceptions.RideNotFoundException;
 import ride_booking_system.repositories.DriverRepository;
 import ride_booking_system.repositories.RideRepository;
@@ -20,10 +19,11 @@ public class CompleteRideService {
 		userRepository = new UserRepository();
 	}
 
-	public void completeRide(Ride ride, User user) throws RideNotFoundException {
+	public void completeRide(int ride_id, int user_id) throws RideNotFoundException {
+		Ride ride = rideRepository.findById(ride_id);
 		if (ride == null)
 			throw new RideNotFoundException("The requested ride cannot be found");
-		if(!verifyUser(ride.getUser_id(), user.getId())){
+		if(!verifyUser(ride.getUser_id(), user_id)){
 			System.out.println("User does not have the right to cancel this ride");
 			return;
 		}

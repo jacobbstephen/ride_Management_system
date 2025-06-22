@@ -18,34 +18,35 @@ public class RideApp {
 	public static void main(String[] args) {
 
 		User u1 = new User("U1", "XXXXXXXX78");
-		// Ride ride1 = new Ride("a", "b", u1.getId(), "car");
+		Ride ride1 = new Ride("a", "b", u1.getId(), "car");
 		UserRepository userRepository = new UserRepository();
-		userRepository.add(u1);
+		BookRideService bookRideService = new BookRideService();
+
 		try {
+			userRepository.add(u1);
 			userRepository.save();
-		} catch (IOException e) {
+			int user_id = u1.getId();
+			bookRideService.bookRide(ride1);
+			int ride_id = ride1.getId();
+
+
+			
+			CompleteRideService completeRideService = new CompleteRideService();
+			completeRideService.completeRide(ride_id, user_id);
+
+			// RateRideService rateRideService = new RateRideService();
+			// rateRideService.rateRide(ride1, 4, u1);
+
+			// PaymentProcess payementService = new PaymentProcess();
+			// payementService.makePayment(ride1, "cash", u1);
+
+			// RideSummaryService rideSummaryService = new RideSummaryService();
+			// rideSummaryService.printRideSummary(ride1);
+			
+		} catch (RideException | IOException e) {
 			e.printStackTrace();
 		}
-		// try {
-		// 	// int user_id = u1.getId();
-		// 	// BookRideService bookRideService = new BookRideService();
-		// 	// bookRideService.bookRide(ride1);
-			
-		// 	// CompleteRideService completeRideService = new CompleteRideService();
-		// 	// completeRideService.completeRide(ride1, u1);
 
-		// 	// RateRideService rateRideService = new RateRideService();
-		// 	// rateRideService.rateRide(ride1, 4, u1);
-
-		// 	// PaymentProcess payementService = new PaymentProcess();
-		// 	// payementService.makePayment(ride1, "cash", u1);
-
-		// 	// RideSummaryService rideSummaryService = new RideSummaryService();
-		// 	// rideSummaryService.printRideSummary(ride1);
-			
-		// } catch (RideException e) {
-		// 	e.printStackTrace();
-		// }
 		
 
 		}
