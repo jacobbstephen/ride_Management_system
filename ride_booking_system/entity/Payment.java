@@ -8,6 +8,7 @@ public class Payment {
 	private LocalDateTime paidAt;
 	private boolean isDone;
 	private int id;
+	private int count = 0;
 
 	public Payment(String paymentMethod, double amount) {
 		super();
@@ -15,6 +16,7 @@ public class Payment {
 		this.amount = amount;
 		this.paidAt = LocalDateTime.now();
 		this.isDone = true;
+		this.id = count++;
 	}
 	public Payment(){
 		

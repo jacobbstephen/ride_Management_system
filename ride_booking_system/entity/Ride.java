@@ -8,22 +8,25 @@ public class Ride {
 	private String dropOffLocation;
 	private double distance;
 	private double fare;
-	private Driver driver;
-	private User user;
 	private RideStatus status;
     private int rating;
     private boolean paymentDone = false;
     private String methodOfPayment;
 	private Payment payment;
 	private String rideType;
+	private int user_id;
+	private int driver_id;
+	private int paymentId;
 	
-	public Ride(String pickUpLocation, String dropOffLocation, User user, String rideType) {
+	public Ride(String pickUpLocation, String dropOffLocation, int user_id, String rideType) {
 		this.pickUpLocation = pickUpLocation;
 		this.dropOffLocation = dropOffLocation;
-		this.user = user;
 		this.rideType = rideType;
+		this.user_id = user_id;
 	}
 	
+	
+
 	public String getRideType() {
 		return rideType;
 	}
@@ -56,12 +59,7 @@ public class Ride {
 	public double getFare() {
 		return fare;
 	}
-	public Driver getDriver() {
-		return driver;
-	}
-	public User getUser() {
-		return user;
-	}
+	
 	
 	public RideStatus getStatus() {
 		return status;
@@ -110,14 +108,23 @@ public class Ride {
 		this.fare = fare;
 	}
 
-	public void setDriver(Driver driver) {
-		this.driver = driver;
+
+	
+	public int getUser_id() {
+		return user_id;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
+	public int getDriver_id() {
+		return driver_id;
+	}
+
+	public void setDriver_id(int driver_id) {
+		this.driver_id = driver_id;
+	}
 
 	public int getId() {
 		return id;
@@ -127,12 +134,24 @@ public class Ride {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "Ride [id=" + id + ", pickUpLocation=" + pickUpLocation + ", dropOffLocation=" + dropOffLocation
-				+ ", distance=" + distance + ", fare=" + fare + ", driver=" + driver.getName() + ", user=" + user.getName() + ", status="
-				+ status + ", rating=" + rating + ", paymentDone=" + paymentDone + ", methodOfPayment="
-				+ methodOfPayment + ", payment=" + payment + ", rideType=" + rideType + "]";
+
+
+	public int getPaymentId() {
+		return paymentId;
 	}
+
+
+
+	public void setPaymentId(int paymentId) {
+		this.paymentId = paymentId;
+	}
+
+	// @Override
+	// public String toString() {
+	// 	return "Ride [id=" + id + ", pickUpLocation=" + pickUpLocation + ", dropOffLocation=" + dropOffLocation
+	// 			+ ", distance=" + distance + ", fare=" + fare + ", driver=" + driver.getName() + ", user=" + user.getName() + ", status="
+	// 			+ status + ", rating=" + rating + ", paymentDone=" + paymentDone + ", methodOfPayment="
+	// 			+ methodOfPayment + ", payment=" + payment + ", rideType=" + rideType + "]";
+	// }
 
 }

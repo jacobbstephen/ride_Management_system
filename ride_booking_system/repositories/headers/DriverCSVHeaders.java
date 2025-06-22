@@ -1,9 +1,10 @@
 package ride_booking_system.repositories.headers;
 
 public interface DriverCSVHeaders {
-    int NAME = 0;
-    int PHONE_NUMBER = 1;
-    int VECHILE_TYPE = 2;
-    int VECHILE_NUMBER = 3;
-    int AVAILABLE = 4;
+    int ID = 0;
+    int NAME = 1;
+    int PHONE_NUMBER = 2;
+    int VECHILE_TYPE = 3;
+    int VECHILE_NUMBER = 4;
+    int AVAILABLE = 5;
 }

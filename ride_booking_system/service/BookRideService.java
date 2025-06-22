@@ -26,7 +26,7 @@ public class BookRideService {
 		Driver assignedDriver = findDriver(ride.getRideType());
 		if (assignedDriver == null)
 			throw new DriverNotFoundException(
-					"All Drivers are busy. Couldn't assign driver for your ride. User: " + ride.getUser().getName());
+					"All Drivers are busy. Couldn't assign driver for your ride. User ");
 
 		assignedDriver.setAvailable(false);
 		try {
@@ -39,8 +39,9 @@ public class BookRideService {
 		ride.setFare(fare);
 		ride.setDistance(distance);
 		ride.setStatus(RideStatus.BOOKED);
-		ride.setDriver(assignedDriver);
+		ride.setDriver_id(assignedDriver.getId());
 		rideRepository.addRide(ride);
+		System.out.println("Ride Successfully Booked");
 	}
 
 	private Driver findDriver(String rideType) {
@@ -55,7 +56,6 @@ public class BookRideService {
 
 			}
 		}
-
 		return assignedDriver;
 	}
 

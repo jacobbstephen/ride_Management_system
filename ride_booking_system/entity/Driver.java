@@ -7,11 +7,12 @@ public class Driver {
 	private Vehicle vechileType;
 	private boolean available;
 	
-	public Driver(String name, String phoneNumber, Vehicle vechileType, boolean available ) {
+	public Driver(int id, String name, String phoneNumber, Vehicle vechileType, boolean available ) {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.vechileType = vechileType;
 		this.available = available;
+		this.id = id;
 	}
 
 	public int getId() {
@@ -53,6 +54,6 @@ public class Driver {
 	}
 	@Override
 	public  String toString() {
-		return name + " : " + phoneNumber + " : " + vechileType + " : " + available;
+		return id + " : " + name + " : " + phoneNumber + " : " + vechileType.getName() + " : " + vechileType.getVehicle_number() + " : " + available;
 	}	
 }

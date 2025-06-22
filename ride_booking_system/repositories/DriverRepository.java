@@ -44,11 +44,13 @@ public class DriverRepository implements DriverCSVHeaders, RepositoryInterface<D
 		drivers.clear();
 		try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
 			String line;
+			reader.readLine();
 			while ((line = reader.readLine()) != null) {
 				String[] fields = line.split(",");
-				if (fields.length < 5) continue; 
+				if (fields.length < 6) continue; 
 				Vehicle vechicle = new Vehicle(fields[VECHILE_TYPE],fields[VECHILE_NUMBER]);
-				Driver driver = new Driver(fields[NAME], fields[PHONE_NUMBER], vechicle, Boolean.parseBoolean(fields[AVAILABLE])); // name, phone, vehicle, available
+				int id = Integer.parseInt(fields[ID]);
+				Driver driver = new Driver(id, fields[NAME], fields[PHONE_NUMBER], vechicle, Boolean.parseBoolean(fields[AVAILABLE])); // name, phone, vehicle, available
 				add(driver);
 			}
 		} catch(IOException e){

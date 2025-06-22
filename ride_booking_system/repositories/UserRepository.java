@@ -42,6 +42,7 @@ public class UserRepository implements RepositoryInterface<User>, UserCSVHeaders
     public void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");
                 if (fields.length < 3) continue;

@@ -16,6 +16,7 @@ public class CancelRideService {
 		driverRepository = new DriverRepository();
 		rideRepository = new RideRepository();
 	}
+	
     public boolean cancelRide(Ride ride) throws RideNotFoundException {
 		if (ride == null)
 			throw new RideNotFoundException("The requested ride cannot be found");
@@ -34,4 +35,5 @@ public class CancelRideService {
 		System.out.println("Cannot cancel. Ride is either already cancelled or completed.");
 		return false;
 	}
+
 }
